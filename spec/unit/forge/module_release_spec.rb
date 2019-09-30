@@ -7,8 +7,8 @@ describe R10K::Forge::ModuleRelease do
   subject { described_class.new('branan-eight_hundred', '8.0.0') }
 
   let(:forge_release_class) { PuppetForge::V3::Release }
-  let(:sha256_digest_class) { Digest::SHA256 }
-  let(:md5_digest_class) { Digest::MD5 }
+  let(:sha256_digest_class) { OpenSSL::Digest::SHA256 }
+  let(:md5_digest_class) { OpenSSL::Digest::MD5 }
 
   let(:download_path) { instance_double('Pathname') }
   let(:tarball_cache_path) { instance_double('Pathname') }
