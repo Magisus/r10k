@@ -52,8 +52,8 @@ class R10K::Git::Rugged::ThinRepository < R10K::Git::Rugged::WorkingRepository
   #
   # @param remote [String] The remote to fetch, defaults to 'cache'
   # @return [void]
-  def fetch(remote = 'cache')
-    super(remote)
+  def fetch(remote: 'cache', creds_from_cli:)
+    super(remote_name: remote, creds_from_cli: creds_from_cli)
   end
 
   # @return [String] The cache remote URL

@@ -67,7 +67,8 @@ class R10K::Source::Git < R10K::Source::Base
     @ignore_branch_prefixes = options[:ignore_branch_prefixes]
     @filter_command = options[:filter_command]
 
-    @cache  = R10K::Git.cache.generate(@remote)
+    credentials = (options[:creds_from_cli] || {})
+    @cache  = R10K::Git.cache.generate(@remote, creds_from_cli: credentials)
   end
 
   # Update the git cache for this git source to get the latest list of environments.
