@@ -64,10 +64,15 @@ module R10K
             if @token_path == '-'
               token = $stdin.read
             elsif File.exists?(@token_path)
-              token = File.read(@token_path)
+              token = File.read(@token_path).strip
             else
               raise R10K::Error, _("{%path} does not exist, cannot load OAuth token") % { path: @token_path }
             end
+
+            unless valid_token?(token)
+              raise R10K::Error, _("Supplied token contains invalid characters.")
+            end
+
             { token: token }
           end
         end
@@ -78,6 +83,10 @@ module R10K
           keypath.write(sshkey)
           keypath.close
           keypath
+        end
+
+        def valid_token?(token)
+          return token =~ /^[\w\-\.~\+\/]+$/
         end
 
         def visit_deployment(deployment)
